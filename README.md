@@ -1,9 +1,7 @@
 # Minimalistic lightdm-webkit2-greeter theme
 Simple theme for lightdm display manager with webkit2 greeter.
-![Screen sample 1](https://github.com/dimaglushkov/lightdm-webkit2-theme-minimal/blob/master/assets/screenshots/screenshot-1.jpg)
 
-![Screen sample 2](https://github.com/dimaglushkov/lightdm-webkit2-theme-minimal/blob/master/assets/screenshots/screenshot-2.jpg)
-
+![Screen sample 1](assets/screenshots/screenshot-1.png)
 
 ## Installation
 1. Clone or download this repo
@@ -20,3 +18,5 @@ greeter-session=lightdm-webkit2-greeter
 ```
 webkit_theme = minimal
 ```
+
+Remake UI from [lightdm-webkit2-theme-minimal](https://github.com/dimaglushkov/lightdm-webkit2-theme-minimal.git)
