@@ -43,10 +43,27 @@ function get_date_time() {
 }
 
 function clear_messages() {
-  let messages = document.getElementById("messages");
-  messages.innerHTML = "";
-  messages.style.visibility = "hidden";
+  const messages = document.getElementById("message-container");
+  const cards = messages.querySelectorAll(".message-card");
+
+  cards.forEach(card => {
+    card.style.opacity = "0";
+    card.style.transform = "translateY(10px)";
+    card.addEventListener("transitionend", () => {
+      card.remove();
+      if (messages.children.length === 0) {
+        messages.style.visibility = "hidden";
+      }
+    }, { once: true });
+  });
+
+  // Fallback in case no cards
+  if (cards.length === 0) {
+    messages.innerHTML = "";
+    messages.style.visibility = "hidden";
+  }
 }
+
 
 function init_session_menu() {
   var x, i, j, l, ll, selElmnt, a, b, c;
@@ -249,7 +266,7 @@ window.handle_input = function (e) {
 
   if (localStorage.getItem(current_session) === null) {
     show_message("Choose a proper session/desktop enviroment", "error");
-    return;
+    e.preventDefault();
   }
 
   loginButton.disabled = true;
@@ -257,6 +274,8 @@ window.handle_input = function (e) {
   loginButton.textContent = "Logging in...";
 
   start_authentication(username.value);
+
+  if (e !== undefined) e.preventDefault();
 };
 
 // Check Caps Lock state on key events
