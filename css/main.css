@@ -116,20 +116,28 @@ body {
 }
 
 #login {
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.05); /* minimal tint only */
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  padding: 1.5em 1.5em;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  padding: 1.5em;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3),
+    inset 0 0 0.5px rgba(255, 255, 255, 0.35);
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 180px;
-  width: 100%;
   max-width: 240px;
   gap: 1em;
   animation: fadeInUp 0.8s ease-out;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#login:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3),
+    inset 0 0 0.5px rgba(255, 255, 255, 0.4);
 }
 
 #avatar {
@@ -148,12 +156,12 @@ body {
 }
 
 #avatar:hover {
-  transform: scale(1.03);
+  transform: scale(1.1);
 }
 
 #pagetitle {
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1em;
   color: #84abff;
 }
 
@@ -205,14 +213,14 @@ ol {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid #ecf3f7;
-  font-size: 16px;
+  font-size: 14px;
   color: #ecf3f7;
-  width: 100%;
-  padding: 0.5em 0;
+  padding: 0.3em 0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-  /* opacity: 0;
-  transform: translateY(20px); */
-  /* animation: fadeInUp 0.5s ease-out forwards; */
+.form-field:focus {
+  border-bottom-color: #84abff;
 }
 
 .form-field::placeholder {
@@ -224,9 +232,13 @@ input:focus {
   border-bottom-color: #84abff;
 }
 
+#submit-button {
+  width: 120px;
+}
+
 button {
   width: 100%;
-  padding: 0.6em 0;
+  padding: 0.4em 0;
   border: none;
   border-radius: 6px;
   background: #84abff;
@@ -235,14 +247,18 @@ button {
   font-size: 1em;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.3s ease;
-  /* animation: fadeInUp 0.5s ease-out forwards; */
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 button:hover {
   transform: scale(1.03);
   background: #5a8cff;
   color: white;
+}
+
+button.loading::after {
+  content: " ⏳";
+  animation: pulse 1s infinite;
 }
 
 .breakdown-sum {
@@ -303,4 +319,75 @@ p {
 
 .select-items div:hover {
   background-color: rgba(146, 145, 145, 0.1);
+}
+
+/* Error message container */
+#message-container {
+  position: fixed;
+  top: 3em;
+  right: 1em;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  align-items: flex-end; /* right-align cards */
+}
+
+/* Single message card */
+.message-card {
+  /* display: flex; */
+  background-color: rgba(255, 80, 80, 0.1);
+  color: #ff8080;
+  padding: 0.8em 1.2em;
+  border-left: 4px solid #ff4d4d;
+  border-radius: 8px;
+  font-size: 0.9em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  animation: slideIn 0.3s ease, fadeOut 0.5s ease 30s forwards;
+  width: fit-content;
+  max-width: 80vw; /* prevent from going too wide on long messages */
+  white-space: pre-wrap; /* wrap if needed */
+  word-break: break-word;
+}
+
+/* Close button */
+.message-card .close-btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 1em;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  margin-left: 5px;
+}
+
+.message-card .close-btn:hover {
+  opacity: 1;
+}
+
+/* Success variant (optional) */
+.message-card.success {
+  border-left-color: #84ffb2;
+  color: #b8ffde;
+  background-color: rgba(80, 255, 200, 0.08);
+}
+
+/* Animation for appearance and disappearance */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 }

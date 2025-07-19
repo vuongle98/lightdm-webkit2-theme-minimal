@@ -49,13 +49,25 @@
           autofocus
         />
 
-        <button type="submit" value="login">log in</button>
-      </form>
+        <div
+          id="caps-lock-indicator"
+          style="display: none"
+          class="caps-lock-warning"
+        >
+          🔒 Caps Lock is ON
+        </div>
 
-      <ul class="flat-list" id="messages"></ul>
+        <button id="submit-button" type="submit" value="login">log in</button>
+      </form>
     </div>
+
+    <div id="message-container"></div>
+
     <script>
       document.getElementById("login").addEventListener("submit", handle_input);
+      document
+        .getElementById("password")
+        .addEventListener("keydown", handleCapsLock);
     </script>
   </body>
 </html>
